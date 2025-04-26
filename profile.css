@@ -1,0 +1,200 @@
+body {
+    background-color: rgb(231, 231, 231);
+}
+.fullcontainer {
+    background-color: white;
+    margin: 30px auto;
+    padding: 30px;
+    max-width: 900px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    color: rgb(30, 94, 41);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    
+    display: block;
+    margin-bottom: 5px;
+}
+input, button {
+    width: 90%;
+    padding: 10px;
+    margin-block: 5px;
+    border-radius: 15px;
+    border: none;
+
+    
+}
+.button {
+    background-color: rgb(185, 185, 185);
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+.update {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+}
+.fullcontainer {
+
+background-color: white;
+margin: 30px auto;
+padding: 30px;
+max-width: 900px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+margin-left: 320px;
+}
+.innertt {
+display: flex;
+justify-content: space-between;
+gap: 20px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+padding: 20px;
+border-radius: 8px;
+
+background: radial-gradient(circle,rgb(110, 197, 107),rgb(63, 112, 70));
+ 
+}
+.secondtt, .thirdtt {
+width: 30%;
+padding: 15px;
+
+border: 1px solid rgb(253, 253, 253);
+border-radius: 8px;
+color: rgb(30, 82, 37);
+}
+.profilett {
+margin-top: 20px;
+border-radius: 50%;
+width: 150px;
+height: 150px;
+}
+.button {
+margin-top: 10px;
+padding: 10px;
+width: 170px;
+background-color: rgb(185, 185, 185);
+font-weight: bold;
+font-family: sans-serif;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+#change {
+margin-top: 10px;
+background-color: rgb(27, 77, 92);
+}
+label {
+color: gray;
+}
+.firsttt{
+border-right: solid lightgray 1px;
+display: grid;                /* Enable Grid layout */
+place-items: center;  
+
+}
+#updateButton {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+}
+#successMessage {
+    
+    background-color:rgb(62, 134, 80);
+    color:rgb(255, 255, 255);
+
+    width: 300px;
+    margin-left: 360px;
+    
+
+    position: fixed; /* Makes the success message fixed at the top */
+top: 80px; /* Positions it at the very top of the viewport */
+left: 60%; /* Centers the message horizontally */
+transform: translateX(-50%); /* Corrects the centering offset */
+
+border: 1px solid #d6e9c6;
+padding: 10px 20px;
+border-radius: 5px;
+text-align: center;
+z-index: 9999; /* Ensures it sits on top of all layers */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for emphasis */
+display: none; /* Initially hidden */
+}
+.picture-upload {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 20px;
+margin-inline: 60px;
+
+}
+
+.picture-label {
+font-weight: bold;
+margin-bottom: 10px;
+color: white;
+text-align: center;
+}
+
+.avatar-preview {
+width: 150px;
+height: 150px;
+object-fit: cover;
+border-radius: 12px;
+border: 2px solid #ddd;
+margin-bottom: 10px;
+transition: transform 0.3s ease;
+}
+
+.avatar-preview:hover {
+transform: scale(1.05);
+}
+
+.file-input {
+display: none; /* Hide the default file input */
+}
+
+.custom-file-label {
+display: inline-block;
+padding: 10px 20px;
+font-size: 14px;
+font-weight: bold;
+color: white;
+background-color:rgb(39, 117, 52);
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.3s ease, transform 0.2s ease;
+text-align: center;
+}
+
+.custom-file-label:hover {
+background-color:rgb(247, 247, 247);
+transform: translateY(-3px);
+color: rgb(39, 117, 52);
+}
+
+.custom-file-label:active {
+background-color:rgb(26, 87, 46);
+transform: translateY(0);
+}
+.secondtt label, .thirdtt label{
+color: white;
+font-weight: bold;
+
+}

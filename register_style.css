@@ -1,0 +1,121 @@
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, 
+  rgb(51, 45, 97) 0%, 
+  rgb(27, 27, 48) 40%, 
+      rgb(19, 19, 24) 100%);
+     
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Needed for positioning pseudo-elements */
+  overflow: hidden; /* Ensures shapes don't overflow the viewport */
+}
+
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%; /* Makes the shapes circular */
+  background: linear-gradient(45deg, #f15338, #fbaa40); /* Gradient for the shapes */
+  z-index: -1; /* Places the shapes behind the content */
+  opacity: 0.8; /* Makes the shapes slightly transparent */
+}
+
+body::before {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  left: -50px;
+}
+
+body::after {
+  width: 500px;
+  height: 400px;
+  bottom: -100px;
+  right: -100px;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  width: 150px; /* Width of the nut shape */
+  height: 100px; /* Height of the nut shape */
+  background: linear-gradient(60deg, #f15338, #fbaa40); /* Gradient for the nut shape */
+  border-radius: 50%; /* Makes it circular */
+  clip-path: polygon(50% 0%, 85% 75%, 100% 50%, 85% 85%, 50% 100%, 15% 85%, 0% 50%, 15% 15%); /* Creates a nut-like shape */
+  top: 45%; /* Vertically centers the shape relative to the container */
+  left: 33%; /* Positions the shape slightly outside the left edge */
+  transform: translateY(-50%); /* Adjusts for vertical centering */
+  z-index: -1; /* Places the shape behind the form */
+  opacity: 0.8; /* Makes the shape slightly transparent */
+}
+
+form{
+margin-top: -10px;
+}
+.slide {
+  width: 700PX;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  max-width: 500px;
+}
+.slide.active {
+  display: block;
+}
+.next-btn, .prev-btn, .submit-btn {
+  background-color:rgb(78, 76, 175);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.next-btn:hover, .prev-btn:hover, .submit-btn:hover {
+  background-color:rgb(49, 48, 105);
+}
+
+ h2{
+    color:rgb(26, 24, 31);
+    text-align: center;
+    display: block;
+}
+
+input, select, textarea{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   width: 70%;
+    margin-block: 8px;
+    border-radius: 5px;
+    border:  0px ;
+    padding: 10px;
+    border:  solid lightgray 2px ;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+select{
+    width: 74%;
+}
+.next-btn{
+  float: right;
+  margin-right: 10px;
+  
+}
+p{
+    text-align: center;
+}
+
+label{
+margin-left: 65px;
+font-family: sans-serif;
+}

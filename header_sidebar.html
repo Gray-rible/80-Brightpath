@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Poster+Gothic" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+     
+</head>
+<body>
+
+<header>
+    <div class="lofg">
+        <img src="logobright.png" alt="Profile Picture">
+    </div>
+</header>
+
+<aside>
+    <div class="logout">
+        <img class="logoimg" width="33" height="33" src="default_avatar.png">
+        <a class="lo" href="logout.php">logout</a>
+    </div>
+    
+<nav>
+<ul>
+  <div class="manage">
+ <div class="mes">
+    <li <?php if ($currentPage == 'dashboard') echo 'class="active"'; ?>>
+        <i class="fas fa-tachometer-alt"></i> <a href="dashboard.php">Dashboard</a>
+    </li>
+    <li <?php if ($currentPage == 'admin') echo 'class="active"'; ?>>
+        <i class="fas fa-users"></i> <a href="manage_account_admin.php">People</a>
+    </li>
+    <li <?php if ($currentPage == 'manage_applications') echo 'class="active"'; ?>>
+        <i class="fas fa-file-alt"></i><a href="manage_applications.php">Applicants</a>
+    </li>
+    <li <?php if ($currentPage == 'manage_scholarships') echo 'class="active"'; ?>>
+        <i class="fas fa-graduation-cap"></i><a href="manage_scholarships.php">Scholarships</a>
+    </li>
+    <li <?php if ($currentPage == 'inquiries') echo 'class="active"'; ?>>
+        <i class="fas fa-envelope"></i>  <a href="inquiries.php">Inquiries</a>
+    </li>
+    <li <?php if ($currentPage == 'settings') echo 'class="active"'; ?>>
+        <i class="fas fa-cog"></i>  <a href="settings.php">Settings</a>
+    </li>
+    <li <?php if ($currentPage == 'profile') echo 'class="active"'; ?>>
+        <i class="fas fa-user"></i>  <a href="profile.php">Profile</a>
+    </li>
+    <li <?php if ($currentPage == 'test') echo 'class="active"'; ?>>
+        <i class="fas fa-user"></i>  <a href="test.php">Test</a>
+    </li>
+ </div>
+</div>
+</ul>
+</nav>
+</aside>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("collapsed");
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<?php
+$currentPage = 'manage_scholarships';
+include 'header_sidebar.html';
+?>
+<?php
+include 'db.php';
+session_start();
+
+// Fetch scholarships managed by the logged-in user
+$userId = $_SESSION['user_id']; // Assuming the user ID is stored in the session
+$managementQuery = "SELECT scholarship_name FROM scholarships WHERE user_id = $userId";
+$managementResult = mysqli_query($conn, $managementQuery);
+
+// Fetch scholarships list with total applicants
+$query = "SELECT 
+            s.scholarship_id, 
+            s.scholarship_name, 
+            c.category_name, 
+            CONCAT(u.first_name, ' ', u.middle_name, ' ', u.last_name) AS full_name,
+            (SELECT COUNT(*) 
+             FROM scholarships_applications sa 
+             WHERE sa.scholarship_id = s.scholarship_id) AS total_applicants
+          FROM scholarships s
+          LEFT JOIN scholarship_categories c
+          ON s.scholarship_category_id = c.scholarship_category_id
+          LEFT JOIN users u
+          ON s.user_id = u.user_id";
+$result = mysqli_query($conn, $query);
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Scholarships</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(235, 235, 235);
+            margin: 0;
+            padding: 0;
+        }
+        .main-container {
+            display: flex;
+            margin-left: 320px;
+            gap: 20px;
+        }
+        .table-container {
+            flex: 3; /* Occupies larger space */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .management-container {
+            flex: 1; /* Occupies smaller space */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .view-btn, .edit-btn {
+            background-color: rgb(55, 109, 44);
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .management{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(to bottom right, 
+        rgb(66, 141, 59) 0%, 
+        rgb(43, 95, 46) 40%, 
+        rgb(24, 66, 29) 100%);
+        color: white;
+        }
+        .new{
+            background-color: white;
+            padding-block: 10px;
+            text-align: center;
+            width: 90%;
+            color: rgb(16, 73, 24);
+            font-weight: bold;
+        }
+        a.view{
+            background-color:  rgb(255, 120, 9);
+            padding: 5px;
+            text-decoration: none;
+            width: 120px;
+            BORDER: none;
+            border-radius: 15px;
+            color: white;
+        }
+         h2{
+            color: rgb(14, 65, 10);
+        }
+        .deploy{
+            height: 80px;
+            width: 85%;
+            margin-block: 26px;
+            padding: 20px;
+            border: solid rgb(14, 65, 10) 3px;
+            text-align: center;
+            font-weight: bold; 
+            color: rgb(14, 65, 10);
+            
+        }
+        .deploy span{
+            border-bottom: solid rgba(14, 65, 10, 0.51) 1px;
+            padding-bottom: 5px;
+           
+        }
+        a.deploy-a{
+            text-align: center;
+            padding: 8px 15px;
+            border: dashed rgb(14, 65, 10) 1px;
+            font-size: 30px;
+            font-weight: 100;
+            font-family: monospace;
+        }
+        a.deploy-a:hover{
+            border: solid rgb(255, 107, 9) 2px;
+            font-size: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Scholarships Table -->
+        <div class="table-container">
+            <h2>Scholarships</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Scholarship Name</th>
+                        <th>Category</th>
+                        <th>Manager</th>
+                        <th>Applicants</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="scholarshipTableBody">
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <tr id="row-<?php echo $row['scholarship_id']; ?>">
+                            <td><?php echo $row['scholarship_id']; ?></td>
+                            <td><?php echo $row['scholarship_name']; ?></td>
+                            <td><?php echo $row['category_name']; ?></td>
+                            <td><?php echo $row['full_name']; ?></td>
+                            <td><?php echo $row['total_applicants']; ?></td>
+                            <td>
+                                <button class="view-btn" onclick="viewScholarship(<?php echo $row['scholarship_id']; ?>)">VIEW</button>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Your Management Section -->
+        <div class="management-container">
+            <h2>Your Management <small style="font-weight: 100;">(1)</small></h2>
+            <?php if (mysqli_num_rows($managementResult) > 0): ?>
+                
+                <div class="management">
+                <ul>
+                    <?php while ($managementRow = mysqli_fetch_assoc($managementResult)): ?>
+                        <li><?php echo htmlspecialchars($managementRow['scholarship_name']); ?></li>
+                    <?php endwhile; ?>
+                </ul>
+                  <div class="new">
+                    <a> (2) new applicants!</a> <a href="" class="view">View</a>
+                  </div>
+
+                </div>
+            <?php else: ?>
+                <p>You are not managing any scholarships.</p>
+            <?php endif; ?>
+            <div class="deploy">
+               <span> Deploy new Scholarship Program</span><br><br>
+                <a class="deploy-a">+</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function viewScholarship(id) {
+            window.location.href = `view_scholarship.php?id=${id}`;
+        }
+
+        function editScholarship(id) {
+            const editForm = document.getElementById('editForm');
+            editForm.classList.add('active');
+            document.getElementById('scholarshipId').value = id;
+
+            fetch(`get_scholarship.php?id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        alert('Error fetching scholarship details.');
+                    } else {
+                        document.getElementById('scholarshipName').value = data.scholarship_name;
+                        document.getElementById('scholarshipCategoryId').value = data.scholarship_category_id;
+                        document.getElementById('scholarshipDescription').value = data.scholarship_description;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching scholarship details:', error);
+                    alert('An error occurred while fetching scholarship details.');
+                });
+        }
+
+        function saveChanges() {
+            const form = document.getElementById('editScholarshipForm');
+            const formData = new FormData(form);
+
+            fetch('update_scholarship.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Scholarship updated successfully!');
+                    const row = document.getElementById(`row-${formData.get('scholarshipId')}`);
+                    row.querySelector('.scholarship-name').textContent = formData.get('scholarshipName');
+                    row.querySelector('.scholarship-category').textContent = document.querySelector(`#scholarshipCategoryId option[value="${formData.get('scholarshipCategoryId')}"]`).textContent;
+                    row.querySelector('.scholarship-description').textContent = formData.get('scholarshipDescription');
+                    document.getElementById('editForm').classList.remove('active');
+                } else {
+                    alert('Error updating scholarship: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating scholarship:', error);
+                alert('An error occurred while updating the scholarship.');
+            });
+        }
+    </script>
+</body>
+</html>
